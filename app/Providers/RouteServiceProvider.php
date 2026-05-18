@@ -33,7 +33,9 @@ class RouteServiceProvider extends ServiceProvider
                 ->prefix('api')
                 ->group(base_path('routes/api.php'));
 
-            Route::middleware('web')
+            // Use the api middleware stack for web routes on Vercel so Laravel
+            // does not require OpenSSL via the web session/cookie middleware.
+            Route::middleware('api')
                 ->group(base_path('routes/web.php'));
         });
     }
